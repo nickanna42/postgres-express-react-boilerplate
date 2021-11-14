@@ -8,4 +8,10 @@ function masterStart() {
   });
 }
 
-module.exports =  { masterStart };
+function forkStart() {
+  return new Promise(function(resolve, reject) {
+    resolve();
+  });
+}
+  
+  module.exports =  { forkStart, masterStart };
