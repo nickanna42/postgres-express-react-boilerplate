@@ -16,10 +16,14 @@
   "scripts": {
     "frontend-build": "npm run build --workspace=frontend && rm server/public -Rf && cp frontend/build server/public -r",
     "frontend-start": "npm run start --workspace=frontend",
-    "server-start": "npm run frontend-build && npm run start --workspace=server"
+    "server-start": "npm run frontend-build && npm run start --workspace=server",
+    "server-watch": "npm run frontend-build && npm run start-watch --workspace=server",
+    "database-start": "docker run --rm --shm-size=256MB -it -e POSTGRES_PASSWORD=develop -e POSTGRES -p 5432:5432 postgres",
+    "migrate": "npm run start --workspace=migration"
   },
   "workspaces": [
     "server",
-    "frontend"
+    "frontend",
+    "migration"
   ]
 }

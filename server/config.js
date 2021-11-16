@@ -6,6 +6,10 @@ const CONFIG = {
   HTTP_PORT: parseInt(process.env.HTTP_PORT) || 5000,
   HTTPS_PORT: parseInt(process.env.HTTPS_PORT) || 443,
   DOMAIN: process.env.DOMAIN,
+  DB_USER: process.env.DB_USER || 'postgres',
+  DB_PASS: process.env.DB_PASS || 'develop',
+  DB_HOST: process.env.DB_HOST || 'localhost',
+  DB_PORT: parseInt(process.env.DB_PORT) || 5432,
 };
 
 module.exports = CONFIG;
