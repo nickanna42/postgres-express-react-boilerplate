@@ -1,7 +1,7 @@
 const CONFIG = {
     databaseUrl: {
         user: process.env.DATABASE_USER || 'postgres',
-        password: process.env.DATABASE_PASS || 'develop',
+        password: process.env.DATABASE_PASS || 'password',
         host: process.env.DATABASE_HOST || 'localhost',
         port: parseInt(process.env.DATABASE_PORT) || 5432,
     },

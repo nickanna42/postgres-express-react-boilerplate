@@ -1,0 +1,57 @@
+version: '3'
+services:
+  frontend:
+    build: 
+      context: ./
+      dockerfile: dockerfiles/frontend_dev.Dockerfile
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend/src:/app/src
+    ports:
+      - 3000:3000
+    networks:
+      - boilerplate_network
+    depends_on:
+      - server
+  
+  server:
+    build:
+      context: ./
+      dockerfile: dockerfiles/server.Dockerfile
+    ports:
+      - 5000:5000
+    networks:
+      - boilerplate_network
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/mydatabase
+    depends_on:
+      - postgres
+  
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydatabase
+    ports:
+      - 5432:5432
+    networks:
+      - boilerplate_network
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  migration:
+    build:
+      context: ./
+      dockerfile: dockerfiles/migration.Dockerfile
+    networks:
+      - boilerplate_network
+    environment:
+      - DATABASE_HOST=postgres
+    depends_on:
+      - postgres
+
+networks:
+  boilerplate_network:
+    driver: bridge
