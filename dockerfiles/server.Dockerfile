@@ -8,12 +8,14 @@ RUN npm run build
 FROM node:20.12.2-alpine
 COPY ./server/package.json /app/server/
 WORKDIR /app/server
-RUN yarn install
+RUN npm install --save-dev
 COPY ./server /app/server/
 
 COPY --from=frontend_builder /app/frontend/build /app/server/public/
 
+RUN npm run build
+
 ARG HTTP_PORT
 EXPOSE 5000
 
-CMD ["node", "index.js"]
+CMD ["node", "dist/index.js"]
