@@ -1,22 +1,25 @@
 // Require needed modules
-const cluster = require('cluster');
-const http = require('http');
-const https = require('https');
-const express = require('express');
-const { engine: hbsEngine } = require('express-handlebars');
-const CONFIG = require('./config');
-const clusterManagement = require('./lib/clusterManagement');
+import cluster from 'cluster'
+import http from 'http'
+import https from 'https'
+import express from 'express'
+import { engine as hbsEngine } from 'express-handlebars'
+import CONFIG from './config'
+import {forkStart, masterStart } from './lib/clusterManagement'
+import { default as routes } from './routes'
+import setupRoutes from './setupRoutes'
+import './globalDeclares'
 
 // Start Cluster
-if (cluster.isMaster) {
-  clusterManagement.masterStart()
+if (cluster.isPrimary) {
+  masterStart()
   .then(() => {
     for (let proc_counter = 0; proc_counter < CONFIG.NODE_CORES; proc_counter++) {
       cluster.fork();
     }
   });
 } else {
-  clusterManagement.forkStart()
+  forkStart()
   .then(() => {
     // Setup Express
     const app = express();
@@ -35,12 +38,10 @@ if (cluster.isMaster) {
     app.set('view engine', '.hbs');
 
     // Configure Routing
-    global.routes = require('./lib/objectifyRoutes.js')('./routes');
     if (CONFIG.NODE_ENV == 'production' && CONFIG.SSL_CERT && CONFIG.SSL_KEY) {
       app.use(routes.middleware.forceHTTPS);
     }
-    app.use(express.static('public', {'extensions': ['html', 'htm'], index: 'index.html'}));
-    require('./routes/index.js')(app);
+    setupRoutes(app);
 
     // Attach application to webserver
     const server = http.createServer(app);
