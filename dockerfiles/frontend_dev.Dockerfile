@@ -6,7 +6,6 @@ RUN npm install --save-dev --legacy-peer-deps
 COPY ./frontend /app/
 
 ENV DEV_PROXY_HOST localhost
-RUN node ./scripts/setupContainerDevServer.js
 
 EXPOSE 3000
 

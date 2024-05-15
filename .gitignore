@@ -12,6 +12,7 @@
 **/build
 server/public
 **/dist
+/data
 
 # misc
 .DS_Store

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "rm -Rf ./dist && tsc",
-    "start-watch": "nodemon src/index.ts",
+    "start-watch": "nodemon --watch ./src src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -6,6 +6,7 @@ services:
       dockerfile: dockerfiles/frontend_dev.Dockerfile
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - DEV_SERVER_PROXY=http://server:5000
     volumes:
       - ./frontend/src:/app/src
     ports:
@@ -18,7 +19,9 @@ services:
   server:
     build:
       context: ./
-      dockerfile: dockerfiles/server.Dockerfile
+      dockerfile: dockerfiles/server_dev.Dockerfile
+    volumes:
+      - ./server/src:/app/server/src
     ports:
       - 5000:5000
     networks:
