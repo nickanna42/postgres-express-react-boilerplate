@@ -10,6 +10,7 @@ const CONFIG = {
   DB_PASS: process.env.DB_PASS || 'develop',
   DB_HOST: process.env.DB_HOST || 'localhost',
   DB_PORT: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
+  DB_DATABASE: process.env.DB_DATABASE || 'mydatabase',
 };
 
 export default CONFIG;

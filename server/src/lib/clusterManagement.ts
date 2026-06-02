@@ -18,6 +18,7 @@ function forkStart() {
       password: CONFIG.DB_PASS,
       host: CONFIG.DB_HOST,
       port: CONFIG.DB_PORT,
+      database: CONFIG.DB_DATABASE
     });
     resolve();
   });

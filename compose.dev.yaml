@@ -27,7 +27,10 @@ services:
     networks:
       - boilerplate_network
     environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/mydatabase
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASS=password
+      - DB_DATABASE=mydatabase
     depends_on:
       - postgres
   

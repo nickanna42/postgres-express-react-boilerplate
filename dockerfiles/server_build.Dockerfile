@@ -1,11 +1,11 @@
-FROM node:20.12.2-alpine AS frontend_builder
+FROM node:20.20.0-alpine AS frontend_builder
 COPY ./frontend/package.json /app/frontend/
 WORKDIR /app/frontend
 RUN yarn install
 COPY ./frontend /app/frontend/
 RUN npm run build
 
-FROM node:20.12.2-alpine
+FROM node:20.20.0-alpine
 COPY ./server/package.json /app/server/
 WORKDIR /app/server
 RUN npm install --save-dev
