@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "node-pg-migrate": "^6.0.0"
+    "node-pg-migrate": "^8.0.4",
+    "pg": "^8.16.0"
   },
   "author": "Nicholas Anna",
   "license": "MIT"
